@@ -1,0 +1,1412 @@
+/* =========================================
+   GUITAR QUEST — Global Styles
+   ========================================= */
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg: #0A0A0F;
+  --accent: #7C3AED;
+  --accent-gold: #F59E0B;
+  --text: #F1F5F9;
+  --text-muted: #94A3B8;
+  --success: #22C55E;
+  --error: #EF4444;
+
+  /* Fredz */
+  --fredz-primary: #FF6B35;
+  --fredz-secondary: #1A1A2E;
+  --fredz-accent: #E8E8E8;
+
+  /* Leloup */
+  --leloup-primary: #F59E0B;
+  --leloup-secondary: #0F172A;
+  --leloup-accent: #EF4444;
+
+  --radius: 12px;
+  --radius-lg: 20px;
+  --shadow-glow: 0 0 30px rgba(124, 58, 237, 0.4);
+  --transition: 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+html, body {
+  height: 100%;
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Inter', sans-serif;
+  overflow-x: hidden;
+}
+
+#app {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* =========================================
+   HUD
+   ========================================= */
+.hud {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  height: 60px;
+  background: rgba(10, 10, 15, 0.92);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(124, 58, 237, 0.2);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 16px;
+  z-index: 100;
+  gap: 12px;
+}
+
+.hud-left, .hud-right {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 80px;
+}
+
+.hud-right { justify-content: flex-end; }
+
+.hud-center {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+}
+
+.xp-bar-container {
+  width: 100%;
+  max-width: 300px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+}
+
+.xp-level-label {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 13px;
+  letter-spacing: 1px;
+  color: var(--accent-gold);
+}
+
+.xp-bar {
+  width: 100%;
+  height: 8px;
+  background: rgba(255,255,255,0.1);
+  border-radius: 99px;
+  overflow: hidden;
+}
+
+.xp-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--accent), var(--accent-gold));
+  border-radius: 99px;
+  width: 0%;
+  transition: width 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.xp-label {
+  font-size: 10px;
+  color: var(--text-muted);
+  font-family: 'Space Mono', monospace;
+}
+
+.btn-icon {
+  background: rgba(255,255,255,0.07);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 8px;
+  width: 36px; height: 36px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 16px;
+  cursor: pointer;
+  color: var(--text);
+  transition: all 0.2s;
+}
+
+.btn-icon:hover {
+  background: rgba(255,255,255,0.14);
+  transform: scale(1.05);
+}
+
+.streak-badge {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  background: rgba(245, 158, 11, 0.15);
+  border: 1px solid rgba(245, 158, 11, 0.3);
+  border-radius: 99px;
+  padding: 4px 10px;
+  font-family: 'Space Mono', monospace;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--accent-gold);
+}
+
+/* =========================================
+   SCREENS
+   ========================================= */
+.screen {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  animation: screenIn 0.4s ease-out;
+}
+
+.screen.with-hud {
+  padding-top: 60px;
+}
+
+@keyframes screenIn {
+  from { opacity: 0; transform: translateX(30px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+
+/* =========================================
+   HOME SCREEN — World Select
+   ========================================= */
+#screen-home {
+  background: radial-gradient(ellipse at 50% 0%, rgba(124,58,237,0.25) 0%, var(--bg) 70%);
+  justify-content: center;
+  min-height: 100vh;
+  padding: 40px 20px;
+}
+
+.home-title {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(36px, 8vw, 72px);
+  letter-spacing: 4px;
+  text-align: center;
+  line-height: 1;
+  margin-bottom: 8px;
+}
+
+.home-title span {
+  background: linear-gradient(135deg, var(--accent), #C084FC, var(--accent-gold));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.home-subtitle {
+  text-align: center;
+  color: var(--text-muted);
+  font-size: 16px;
+  margin-bottom: 48px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+
+.worlds-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+  width: 100%;
+  max-width: 760px;
+}
+
+@media (max-width: 560px) {
+  .worlds-grid { grid-template-columns: 1fr; }
+}
+
+.world-card {
+  position: relative;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  cursor: pointer;
+  aspect-ratio: 3/4;
+  border: 2px solid transparent;
+  transition: all 0.3s;
+  transform-style: preserve-3d;
+}
+
+.world-card:hover {
+  transform: scale(1.03) translateY(-4px);
+  box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+}
+
+.world-card.fredz {
+  background: linear-gradient(160deg, #1A1A2E 0%, #16213E 60%, #0F0F1A 100%);
+  border-color: rgba(255, 107, 53, 0.4);
+}
+
+.world-card.fredz:hover {
+  border-color: var(--fredz-primary);
+  box-shadow: 0 20px 60px rgba(255, 107, 53, 0.3);
+}
+
+.world-card.leloup {
+  background: linear-gradient(160deg, #0F172A 0%, #1E1B4B 60%, #0A0A0F 100%);
+  border-color: rgba(245, 158, 11, 0.4);
+}
+
+.world-card.leloup:hover {
+  border-color: var(--leloup-primary);
+  box-shadow: 0 20px 60px rgba(245, 158, 11, 0.3);
+}
+
+.world-bg {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+}
+
+.world-content {
+  position: relative;
+  z-index: 2;
+  padding: 24px;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  background: linear-gradient(to top, rgba(0,0,0,0.85) 0%, transparent 60%);
+}
+
+.world-tag {
+  font-size: 10px;
+  font-family: 'Space Mono', monospace;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  padding: 4px 10px;
+  border-radius: 99px;
+  display: inline-block;
+  margin-bottom: 8px;
+  width: fit-content;
+}
+
+.fredz .world-tag { background: rgba(255,107,53,0.2); color: var(--fredz-primary); border: 1px solid rgba(255,107,53,0.4); }
+.leloup .world-tag { background: rgba(245,158,11,0.2); color: var(--leloup-primary); border: 1px solid rgba(245,158,11,0.4); }
+
+.world-song {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 28px;
+  letter-spacing: 2px;
+  line-height: 1.1;
+  margin-bottom: 4px;
+}
+
+.fredz .world-song { color: var(--fredz-primary); }
+.leloup .world-song { color: var(--leloup-primary); }
+
+.world-artist {
+  font-size: 14px;
+  color: var(--text-muted);
+  margin-bottom: 12px;
+}
+
+.world-chords {
+  font-family: 'Space Mono', monospace;
+  font-size: 13px;
+  margin-bottom: 16px;
+}
+
+.fredz .world-chords { color: var(--fredz-accent); }
+.leloup .world-chords { color: #CBD5E1; }
+
+.world-progress-mini {
+  display: flex;
+  gap: 4px;
+  margin-bottom: 16px;
+}
+
+.level-dot {
+  width: 20px; height: 6px;
+  border-radius: 99px;
+  background: rgba(255,255,255,0.15);
+}
+
+.level-dot.done { background: var(--success); }
+.level-dot.active { background: var(--accent); }
+
+.btn-enter {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 18px;
+  letter-spacing: 2px;
+  padding: 12px 24px;
+  border: none;
+  border-radius: var(--radius);
+  cursor: pointer;
+  width: 100%;
+  transition: all 0.2s;
+}
+
+.fredz .btn-enter {
+  background: linear-gradient(135deg, var(--fredz-primary), #FF4500);
+  color: white;
+}
+
+.leloup .btn-enter {
+  background: linear-gradient(135deg, var(--leloup-primary), #EF4444);
+  color: var(--bg);
+}
+
+.btn-enter:hover {
+  transform: scale(1.03);
+  filter: brightness(1.1);
+}
+
+/* Montréal skyline SVG */
+.montreal-sky {
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 60%;
+  opacity: 0.4;
+}
+
+/* Desert road */
+.desert-road {
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 70%;
+  opacity: 0.5;
+}
+
+/* Neon lights animation */
+.neon-dot {
+  position: absolute;
+  border-radius: 50%;
+  animation: neonPulse 2s ease-in-out infinite alternate;
+}
+
+@keyframes neonPulse {
+  from { opacity: 0.3; }
+  to   { opacity: 1; filter: blur(1px); }
+}
+
+/* Stars */
+.star {
+  position: absolute;
+  width: 2px; height: 2px;
+  background: white;
+  border-radius: 50%;
+  animation: twinkle 3s ease-in-out infinite alternate;
+}
+
+@keyframes twinkle {
+  from { opacity: 0.2; }
+  to   { opacity: 1; }
+}
+
+/* =========================================
+   WORLD SCREEN — Level Map
+   ========================================= */
+#screen-world {
+  padding-top: 80px;
+  padding-bottom: 60px;
+  min-height: 100vh;
+}
+
+.world-header {
+  width: 100%;
+  padding: 20px 24px;
+  text-align: center;
+  position: relative;
+}
+
+.world-header-title {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(28px, 6vw, 48px);
+  letter-spacing: 3px;
+}
+
+.world-header-sub {
+  font-size: 14px;
+  color: var(--text-muted);
+  margin-top: 4px;
+}
+
+.level-map {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  padding: 24px 20px;
+  width: 100%;
+  max-width: 480px;
+  margin: 0 auto;
+}
+
+.level-card {
+  width: 100%;
+  border-radius: var(--radius);
+  padding: 20px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  cursor: pointer;
+  border: 2px solid transparent;
+  transition: all 0.25s;
+  position: relative;
+  overflow: hidden;
+}
+
+.level-card.locked {
+  background: rgba(255,255,255,0.04);
+  border-color: rgba(255,255,255,0.08);
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+.level-card.available {
+  background: rgba(255,255,255,0.06);
+  border-color: rgba(124,58,237,0.4);
+  cursor: pointer;
+}
+
+.level-card.available:hover {
+  background: rgba(124,58,237,0.12);
+  border-color: var(--accent);
+  transform: translateX(4px);
+}
+
+.level-card.completed {
+  border-color: rgba(34,197,94,0.4);
+  background: rgba(34,197,94,0.05);
+}
+
+.level-icon {
+  font-size: 36px;
+  min-width: 48px;
+  text-align: center;
+}
+
+.level-info {
+  flex: 1;
+}
+
+.level-num {
+  font-family: 'Space Mono', monospace;
+  font-size: 11px;
+  color: var(--text-muted);
+  letter-spacing: 1px;
+  margin-bottom: 2px;
+}
+
+.level-title {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 20px;
+  letter-spacing: 1px;
+}
+
+.level-desc {
+  font-size: 13px;
+  color: var(--text-muted);
+  margin-top: 2px;
+}
+
+.level-xp {
+  font-family: 'Space Mono', monospace;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--accent-gold);
+  white-space: nowrap;
+}
+
+.level-card.completed .level-xp::before {
+  content: "✓ ";
+  color: var(--success);
+}
+
+.level-connector {
+  width: 2px;
+  height: 16px;
+  background: rgba(255,255,255,0.1);
+  margin: 0 auto;
+}
+
+.level-connector.done { background: var(--success); }
+
+/* =========================================
+   LEVEL SCREEN
+   ========================================= */
+#screen-level {
+  padding-top: 80px;
+  min-height: 100vh;
+}
+
+.level-screen-inner {
+  width: 100%;
+  max-width: 640px;
+  margin: 0 auto;
+  padding: 24px 20px 60px;
+}
+
+.level-screen-header {
+  margin-bottom: 28px;
+  text-align: center;
+}
+
+.level-screen-title {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(24px, 5vw, 40px);
+  letter-spacing: 2px;
+}
+
+.level-screen-sub {
+  font-size: 14px;
+  color: var(--text-muted);
+  margin-top: 6px;
+}
+
+.piano-link {
+  background: rgba(124,58,237,0.12);
+  border: 1px solid rgba(124,58,237,0.3);
+  border-radius: var(--radius);
+  padding: 12px 16px;
+  font-size: 13px;
+  color: #C084FC;
+  margin: 16px 0;
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+}
+
+.piano-link::before { content: "🎹"; flex-shrink: 0; }
+
+/* =========================================
+   GUITAR NECK COMPONENT
+   ========================================= */
+.neck-container {
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: var(--radius);
+  padding: 20px;
+  margin: 20px 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+}
+
+.neck-title {
+  font-family: 'Space Mono', monospace;
+  font-size: 12px;
+  letter-spacing: 2px;
+  color: var(--text-muted);
+  text-transform: uppercase;
+}
+
+.guitar-neck-svg {
+  width: 100%;
+  max-width: 440px;
+  cursor: pointer;
+}
+
+.neck-dot {
+  transition: all 0.2s;
+  cursor: pointer;
+}
+
+.neck-dot:hover circle { filter: brightness(1.3); }
+
+.finger-dot {
+  transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.neck-help-text {
+  font-size: 12px;
+  color: var(--text-muted);
+  text-align: center;
+}
+
+/* =========================================
+   METRONOME
+   ========================================= */
+.metronome-container {
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: var(--radius);
+  padding: 24px 20px;
+  margin: 20px 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+}
+
+.metro-display {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
+.metro-bpm {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 48px;
+  color: var(--accent);
+  line-height: 1;
+}
+
+.metro-bpm-label {
+  font-size: 11px;
+  letter-spacing: 2px;
+  color: var(--text-muted);
+  text-transform: uppercase;
+}
+
+.metro-pendulum-wrap {
+  width: 60px;
+  height: 80px;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  overflow: visible;
+}
+
+.metro-pendulum {
+  width: 4px;
+  height: 60px;
+  background: linear-gradient(to bottom, var(--accent), transparent);
+  border-radius: 2px;
+  transform-origin: top center;
+  position: relative;
+}
+
+.metro-pendulum::after {
+  content: '';
+  position: absolute;
+  bottom: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 20px; height: 20px;
+  border-radius: 50%;
+  background: var(--accent);
+  box-shadow: 0 0 12px var(--accent);
+}
+
+.metro-pendulum.tick {
+  animation: pendulumTick 0.15s ease-out;
+}
+
+@keyframes pendulumTick {
+  0%  { transform: rotate(0deg); }
+  50% { transform: rotate(25deg); }
+  100% { transform: rotate(0deg); }
+}
+
+.strum-pattern {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+
+.strum-arrow {
+  font-family: 'Space Mono', monospace;
+  font-size: 22px;
+  color: var(--text-muted);
+  transition: all 0.1s;
+  width: 28px;
+  text-align: center;
+}
+
+.strum-arrow.active {
+  color: var(--accent);
+  transform: scale(1.4);
+  text-shadow: 0 0 8px var(--accent);
+}
+
+.metro-controls {
+  display: flex;
+  gap: 12px;
+}
+
+/* =========================================
+   QUIZ / MINI-GAMES
+   ========================================= */
+.quiz-container {
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: var(--radius);
+  padding: 24px;
+  margin: 20px 0;
+}
+
+.quiz-question {
+  font-size: 17px;
+  font-weight: 600;
+  margin-bottom: 20px;
+  line-height: 1.4;
+}
+
+.quiz-options {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.quiz-option {
+  background: rgba(255,255,255,0.06);
+  border: 2px solid rgba(255,255,255,0.1);
+  border-radius: var(--radius);
+  padding: 14px 18px;
+  font-size: 15px;
+  color: var(--text);
+  cursor: pointer;
+  text-align: left;
+  transition: all 0.2s;
+}
+
+.quiz-option:hover:not(:disabled) {
+  background: rgba(124,58,237,0.15);
+  border-color: var(--accent);
+  transform: translateX(4px);
+}
+
+.quiz-option.correct {
+  border-color: var(--success);
+  background: rgba(34,197,94,0.1);
+}
+
+.quiz-option.wrong {
+  border-color: var(--error);
+  background: rgba(239,68,68,0.1);
+  animation: shake 0.3s ease-out;
+}
+
+@keyframes shake {
+  0%,100% { transform: translateX(0); }
+  25% { transform: translateX(-8px); }
+  75% { transform: translateX(8px); }
+}
+
+/* Drag & Drop — Strings */
+.strings-label-game {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin: 16px 0;
+}
+
+.string-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.string-line {
+  flex: 1;
+  height: 3px;
+  border-radius: 99px;
+  background: linear-gradient(90deg, #888, #CCC, #888);
+}
+
+.string-line:nth-child(1) { height: 5px; }
+.string-line:nth-child(3) { height: 4px; }
+
+.string-drop-zone {
+  width: 60px;
+  height: 36px;
+  border: 2px dashed rgba(255,255,255,0.2);
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Space Mono', monospace;
+  font-size: 13px;
+  transition: all 0.2s;
+}
+
+.string-drop-zone.over {
+  border-color: var(--accent);
+  background: rgba(124,58,237,0.1);
+}
+
+.string-drop-zone.filled {
+  border-style: solid;
+  border-color: var(--success);
+  background: rgba(34,197,94,0.1);
+  color: var(--success);
+}
+
+.drag-labels {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 16px 0;
+}
+
+.drag-chip {
+  background: rgba(124,58,237,0.2);
+  border: 1px solid rgba(124,58,237,0.4);
+  border-radius: 8px;
+  padding: 6px 14px;
+  font-family: 'Space Mono', monospace;
+  font-size: 14px;
+  cursor: grab;
+  transition: all 0.2s;
+  user-select: none;
+}
+
+.drag-chip:active { cursor: grabbing; transform: scale(1.05); }
+.drag-chip.used { opacity: 0.3; pointer-events: none; }
+
+/* =========================================
+   CHORD TRANSITION CHALLENGE
+   ========================================= */
+.chord-transition {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  flex-wrap: wrap;
+  margin: 20px 0;
+}
+
+.chord-box {
+  background: rgba(255,255,255,0.06);
+  border: 2px solid rgba(255,255,255,0.1);
+  border-radius: var(--radius);
+  padding: 16px 24px;
+  font-family: 'Space Mono', monospace;
+  font-size: 28px;
+  font-weight: 700;
+  min-width: 80px;
+  text-align: center;
+  transition: all 0.3s;
+}
+
+.chord-box.active {
+  border-color: var(--accent);
+  background: rgba(124,58,237,0.15);
+  box-shadow: 0 0 20px rgba(124,58,237,0.3);
+  transform: scale(1.1);
+}
+
+.chord-arrow {
+  font-size: 20px;
+  color: var(--text-muted);
+}
+
+.countdown-ring {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  margin: 20px 0;
+}
+
+.countdown-num {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 72px;
+  line-height: 1;
+  background: linear-gradient(135deg, var(--accent), var(--accent-gold));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.countdown-label {
+  font-size: 12px;
+  letter-spacing: 2px;
+  color: var(--text-muted);
+  text-transform: uppercase;
+}
+
+/* =========================================
+   SONG SECTIONS (Niveau 6)
+   ========================================= */
+.song-sections {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin: 20px 0;
+}
+
+.song-section {
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: var(--radius);
+  padding: 16px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.song-section:hover {
+  border-color: var(--accent);
+  background: rgba(124,58,237,0.08);
+}
+
+.song-section.active {
+  border-color: var(--accent);
+  background: rgba(124,58,237,0.12);
+}
+
+.song-section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.section-label {
+  font-family: 'Space Mono', monospace;
+  font-size: 11px;
+  color: var(--text-muted);
+  letter-spacing: 1px;
+}
+
+.section-chords-strip {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-bottom: 8px;
+}
+
+.chord-pill {
+  background: rgba(124,58,237,0.2);
+  border: 1px solid rgba(124,58,237,0.4);
+  border-radius: 99px;
+  padding: 3px 10px;
+  font-family: 'Space Mono', monospace;
+  font-size: 13px;
+  font-weight: 700;
+  color: #C084FC;
+}
+
+.lyrics-line {
+  font-size: 14px;
+  color: var(--text-muted);
+  line-height: 1.5;
+  font-style: italic;
+}
+
+/* =========================================
+   KARAOKE / BOSS LEVEL
+   ========================================= */
+.karaoke-display {
+  background: rgba(0,0,0,0.4);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: var(--radius);
+  padding: 24px;
+  margin: 20px 0;
+  text-align: center;
+}
+
+.karaoke-chord-now {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 64px;
+  letter-spacing: 4px;
+  line-height: 1;
+  margin-bottom: 8px;
+}
+
+.karaoke-lyric {
+  font-size: 16px;
+  color: var(--text-muted);
+  margin-bottom: 16px;
+  line-height: 1.5;
+  min-height: 48px;
+}
+
+.karaoke-next {
+  font-size: 13px;
+  color: rgba(255,255,255,0.3);
+  font-family: 'Space Mono', monospace;
+}
+
+.progress-bar-song {
+  width: 100%;
+  height: 4px;
+  background: rgba(255,255,255,0.1);
+  border-radius: 99px;
+  overflow: hidden;
+  margin: 12px 0;
+}
+
+.progress-bar-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--accent), var(--accent-gold));
+  transition: width 0.3s linear;
+}
+
+/* Self-eval */
+.self-eval {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  margin: 20px 0;
+  flex-wrap: wrap;
+}
+
+.eval-btn {
+  background: rgba(255,255,255,0.06);
+  border: 2px solid rgba(255,255,255,0.1);
+  border-radius: var(--radius);
+  padding: 16px 20px;
+  font-size: 28px;
+  cursor: pointer;
+  transition: all 0.2s;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  min-width: 90px;
+}
+
+.eval-btn span {
+  font-size: 12px;
+  color: var(--text-muted);
+  font-family: 'Space Mono', monospace;
+}
+
+.eval-btn:hover {
+  transform: scale(1.08);
+  border-color: var(--accent);
+  background: rgba(124,58,237,0.15);
+}
+
+/* =========================================
+   TIMER
+   ========================================= */
+.timer-display {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 48px;
+  text-align: center;
+  color: var(--accent-gold);
+  margin: 16px 0;
+}
+
+.timer-display.urgent { color: var(--error); animation: timerPulse 0.5s ease infinite alternate; }
+
+@keyframes timerPulse {
+  from { opacity: 1; }
+  to   { opacity: 0.6; }
+}
+
+/* =========================================
+   BUTTONS
+   ========================================= */
+.btn {
+  font-family: 'Bebas Neue', sans-serif;
+  letter-spacing: 2px;
+  font-size: 18px;
+  padding: 14px 28px;
+  border: none;
+  border-radius: var(--radius);
+  cursor: pointer;
+  transition: all var(--transition);
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, var(--accent), #6D28D9);
+  color: white;
+}
+
+.btn-primary:hover {
+  filter: brightness(1.15);
+  transform: scale(1.03) translateY(-1px);
+  box-shadow: 0 8px 24px rgba(124,58,237,0.4);
+}
+
+.btn-secondary {
+  background: rgba(255,255,255,0.08);
+  border: 1px solid rgba(255,255,255,0.15);
+  color: var(--text);
+}
+
+.btn-secondary:hover {
+  background: rgba(255,255,255,0.14);
+  transform: scale(1.02);
+}
+
+.btn-success {
+  background: linear-gradient(135deg, var(--success), #16A34A);
+  color: white;
+}
+
+.btn-row {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-top: 24px;
+}
+
+/* =========================================
+   BADGES SCREEN
+   ========================================= */
+#screen-badges {
+  padding-top: 80px;
+  min-height: 100vh;
+}
+
+.badges-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+  gap: 16px;
+  padding: 24px 20px;
+  max-width: 640px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.badge-item {
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: var(--radius);
+  padding: 16px 12px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
+.badge-item.earned {
+  border-color: rgba(245,158,11,0.4);
+  background: rgba(245,158,11,0.06);
+}
+
+.badge-emoji {
+  font-size: 36px;
+  line-height: 1;
+}
+
+.badge-item.locked .badge-emoji {
+  filter: grayscale(1) brightness(0.3);
+}
+
+.badge-name {
+  font-size: 11px;
+  font-family: 'Space Mono', monospace;
+  color: var(--text-muted);
+  text-align: center;
+  line-height: 1.3;
+}
+
+.badge-item.earned .badge-name { color: var(--text); }
+.badge-item.locked .badge-name { color: rgba(255,255,255,0.2); }
+
+/* =========================================
+   TOAST / NOTIFICATIONS
+   ========================================= */
+.toast {
+  position: fixed;
+  top: 80px;
+  left: 50%;
+  transform: translateX(-50%) translateY(-20px);
+  background: rgba(20,20,30,0.95);
+  border: 1px solid rgba(255,255,255,0.15);
+  border-radius: var(--radius);
+  padding: 12px 20px;
+  font-size: 15px;
+  z-index: 200;
+  opacity: 0;
+  transition: all 0.3s;
+  pointer-events: none;
+  text-align: center;
+  max-width: 320px;
+  backdrop-filter: blur(12px);
+}
+
+.toast.show {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+
+/* =========================================
+   XP POP
+   ========================================= */
+.xp-pop {
+  position: fixed;
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 28px;
+  color: var(--accent-gold);
+  pointer-events: none;
+  z-index: 300;
+  animation: xpFloat 1.2s ease-out forwards;
+  text-shadow: 0 0 12px rgba(245,158,11,0.8);
+}
+
+@keyframes xpFloat {
+  0%   { opacity: 1; transform: translateY(0) scale(1); }
+  100% { opacity: 0; transform: translateY(-60px) scale(1.3); }
+}
+
+/* =========================================
+   LEVEL UP OVERLAY
+   ========================================= */
+.levelup-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.85);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  z-index: 400;
+  animation: fadeIn 0.3s ease-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+.levelup-content {
+  text-align: center;
+  animation: levelupPop 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+@keyframes levelupPop {
+  from { transform: scale(0.5); opacity: 0; }
+  to   { transform: scale(1); opacity: 1; }
+}
+
+.levelup-label {
+  font-size: 14px;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: var(--accent-gold);
+  margin-bottom: 8px;
+}
+
+.levelup-title {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 72px;
+  letter-spacing: 4px;
+  background: linear-gradient(135deg, var(--accent), var(--accent-gold));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.levelup-new {
+  font-size: 24px;
+  font-weight: 700;
+  margin: 8px 0;
+}
+
+/* =========================================
+   BADGE UNLOCK POPUP
+   ========================================= */
+.badge-popup {
+  position: fixed;
+  bottom: 30px;
+  left: 50%;
+  transform: translateX(-50%) scale(0.5);
+  background: linear-gradient(135deg, rgba(20,10,40,0.98), rgba(10,10,20,0.98));
+  border: 2px solid var(--accent-gold);
+  border-radius: var(--radius-lg);
+  padding: 20px 28px;
+  z-index: 500;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  min-width: 280px;
+  opacity: 0;
+  transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+  box-shadow: 0 0 40px rgba(245,158,11,0.3);
+}
+
+.badge-popup.show {
+  opacity: 1;
+  transform: translateX(-50%) scale(1);
+}
+
+.badge-popup-emoji { font-size: 44px; }
+
+.badge-popup-text { display: flex; flex-direction: column; gap: 2px; }
+
+.badge-popup-label {
+  font-size: 10px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--accent-gold);
+}
+
+.badge-popup-name {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 22px;
+  letter-spacing: 1px;
+}
+
+/* =========================================
+   CONFETTI CANVAS
+   ========================================= */
+#confetti-canvas {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 350;
+}
+
+/* =========================================
+   OVERLAY
+   ========================================= */
+.overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+}
+
+/* =========================================
+   COMBO
+   ========================================= */
+.combo-display {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(0);
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 64px;
+  color: var(--accent-gold);
+  z-index: 300;
+  pointer-events: none;
+  text-shadow: 0 0 30px var(--accent-gold);
+  animation: comboPop 1s ease-out forwards;
+}
+
+@keyframes comboPop {
+  0%   { transform: translate(-50%, -50%) scale(0); opacity: 1; }
+  50%  { transform: translate(-50%, -50%) scale(1.2); opacity: 1; }
+  100% { transform: translate(-50%, -50%) scale(1) translateY(-40px); opacity: 0; }
+}
+
+/* =========================================
+   UTILITY
+   ========================================= */
+.hidden { display: none !important; }
+.text-center { text-align: center; }
+.mt-4 { margin-top: 16px; }
+.mt-6 { margin-top: 24px; }
+.mb-4 { margin-bottom: 16px; }
+
+.section-title {
+  font-family: 'Space Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-bottom: 12px;
+}
+
+.divider {
+  width: 100%;
+  height: 1px;
+  background: rgba(255,255,255,0.07);
+  margin: 20px 0;
+}
+
+/* Fredz World Colors */
+.world-fredz .level-card.available { border-color: rgba(255,107,53,0.4); }
+.world-fredz .level-card.available:hover { border-color: var(--fredz-primary); background: rgba(255,107,53,0.08); }
+.world-fredz .chord-box.active { border-color: var(--fredz-primary); background: rgba(255,107,53,0.1); box-shadow: 0 0 20px rgba(255,107,53,0.3); }
+.world-fredz .karaoke-chord-now { color: var(--fredz-primary); }
+.world-fredz .world-header-title { color: var(--fredz-primary); }
+
+/* Leloup World Colors */
+.world-leloup .level-card.available { border-color: rgba(245,158,11,0.4); }
+.world-leloup .level-card.available:hover { border-color: var(--leloup-primary); background: rgba(245,158,11,0.08); }
+.world-leloup .chord-box.active { border-color: var(--leloup-primary); background: rgba(245,158,11,0.1); box-shadow: 0 0 20px rgba(245,158,11,0.3); }
+.world-leloup .karaoke-chord-now { color: var(--leloup-primary); }
+.world-leloup .world-header-title { color: var(--leloup-primary); }
